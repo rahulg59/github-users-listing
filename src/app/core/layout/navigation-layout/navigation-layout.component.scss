@@ -1,0 +1,12 @@
+:host ::ng-deep {
+    .mat-toolbar {
+        justify-content: space-between;
+        border-bottom: 1px solid #e0e0e0;
+        .mat-mdc-tab-link-container {
+            border: none;
+            .mat-mdc-tab-link {
+                height: 62px;
+            }
+        }
+    }
+}
