@@ -1,0 +1,22 @@
+.label {
+    &.h1 {
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--fontColor);
+    }
+    &.h2 {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--fontColor);
+    }
+    &.h3 {
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--fontColor);
+    }
+    &.h4 {
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--lightFontColor);
+    }
+}

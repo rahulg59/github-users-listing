@@ -1,1 +1,26 @@
-<p>search-users works!</p>
+<div class="home-page-container">
+    <div class="page-inner-container" [ngClass]="{'full-height': showUserList()}">
+        <div class="page-header">
+            <app-label type="h3">Search Github User</app-label>
+        </div>
+        <div class="search-bar">
+            <app-search-input (onSearch)="triggerSearch()" placeholder="Search User" [value]="searchValue()" (valueChange)="searchValue.set($event)"></app-search-input>
+        </div>
+        <div class="search-action">
+            <button class="fluid" (click)="triggerSearch()" [disabled]="!!!searchValue" mat-flat-button>Search</button>
+        </div>
+        <div class="search-list-container">
+            <app-label type="h4">{{ resultListTitle() }}</app-label>
+            @if(showUserList()) {
+                <cdk-virtual-scroll-viewport itemSize="180" class="viewport" (scrolledIndexChange)="onScroll($event)">
+                <div *cdkVirtualFor="let user of users()" class="user-card">
+                    <app-user-card [userInfo]="user"></app-user-card>
+                </div>
+                @if(isLoading()) {
+                    <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
+                }
+                </cdk-virtual-scroll-viewport>
+            }
+        </div>
+    </div>
+</div>

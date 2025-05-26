@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { LabelComponent } from "../../../shared/ui-elements/label/label.component";
 
 @Component({
   selector: 'app-navigation-layout',
@@ -10,8 +11,9 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
     MatToolbarModule,
     MatTabsModule,
     RouterModule,
-    CommonModule
-  ],
+    CommonModule,
+    LabelComponent
+],
   templateUrl: './navigation-layout.component.html',
   styleUrl: './navigation-layout.component.scss'
 })

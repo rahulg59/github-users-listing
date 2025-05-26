@@ -1,0 +1,10 @@
+<p-iconfield>
+    <p-inputicon styleClass="pi pi-search" />
+    <input type="text" 
+    [fluid]="true" 
+    [placeholder]="placeholder()" 
+    (keydown)="onSubmit($event)"
+    name="user-search" 
+    [(ngModel)]="value" 
+    pInputText/>
+</p-iconfield>

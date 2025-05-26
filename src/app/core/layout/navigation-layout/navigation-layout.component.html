@@ -1,10 +1,8 @@
 <mat-toolbar>
-    <span>Github Users App</span>
-    <!-- <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="end">
-        <mat-tab label="First">Content 1</mat-tab>
-        <mat-tab label="Second">Content 2</mat-tab>
-    </mat-tab-group> -->
-    <nav mat-tab-nav-bar color="accent" [tabPanel]="tabPanel">
+    <span>
+        <app-label type="h2">Github Users App</app-label>
+    </span>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
     @for (link of links; track link) {
         <a mat-tab-link [routerLink]="link.route"
         (click)="activeLink = link.route"

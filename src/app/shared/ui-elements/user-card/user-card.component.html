@@ -1,0 +1,10 @@
+<div class="card-container">
+    <div class="user-image">
+        <span class="item-label">User Image</span>
+        <img [src]="userInfo.avatar_url" [alt]="'gh_user_img_'+userInfo.login">
+    </div>
+    <div class="user-info">
+        <span class="item-label">Github Username</span>
+        <span class="item-value">{{userInfo.login}}</span>
+    </div>
+</div>

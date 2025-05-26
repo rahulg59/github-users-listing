@@ -1,0 +1,34 @@
+:host {
+    width: 100%;
+}
+.card-container {
+    border: 1px solid var(--borderColor);
+    padding: 16px;
+    height: 180px;
+    width: 100%;
+    border-radius: 4px;
+    display: flex;
+    .user-image, .user-info {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .user-image {
+        img {
+            width: 100px;
+            border: 1px solid var(--borderColor);
+            border-radius: 4px;
+            background-color: var(--borderColor);
+        }
+    }
+    .item-label {
+        font-size: 14px;
+        color: var(--grayFontColor);
+    }
+    .item-value {
+        font-size: 14px;
+        color: var(--fontColor);
+        overflow-wrap: break-word;
+    }
+}

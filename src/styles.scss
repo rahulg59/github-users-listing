@@ -1,12 +1,13 @@
-
 @use '@angular/material' as mat;
+@import "primeicons/primeicons.css";
+@import "assets/style/style_theme-colors.scss";
 
 html {
   @include mat.theme((
     color: (
       theme-type: light,
-      primary: mat.$green-palette,
-      tertiary: mat.$blue-palette,
+      primary: $primary-palette,
+      tertiary: $tertiary-palette,
     ),
     typography: Roboto,
     density: 0,
@@ -15,8 +16,14 @@ html {
     primary: #129990,
     on-primary: #f0f0f0,
     corner-full: 4px,
+    corner-medium: 4px
   ));
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: #f4f4f4;
+  color: var(--fontColor); // base font color
+}
