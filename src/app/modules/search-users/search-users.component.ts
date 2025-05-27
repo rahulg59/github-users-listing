@@ -8,6 +8,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { UserCardComponent } from "../../shared/ui-elements/user-card/user-card.component";
 import { SystemConfig } from '../../core/config/system.config';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-search-users',
@@ -19,7 +20,7 @@ import { SystemConfig } from '../../core/config/system.config';
     ProgressBarModule,
     CommonModule,
     UserCardComponent
-],
+  ],
   templateUrl: './search-users.component.html',
   styleUrl: './search-users.component.scss'
 })
@@ -35,6 +36,7 @@ export class SearchUsersComponent {
 
   // injectors
   private githubService = inject(GithubApiService);
+  private toasty = inject(MessageService);
 
   // computed
   resultListTitle = computed(() => {
@@ -84,6 +86,7 @@ export class SearchUsersComponent {
         this.searchedQuery.set(this.searchValue());
       }, error => {
         // clear data on api fail
+        this.toasty.add({ summary: "Github API:", detail: error?.error?.message || "API Failed", severity: "error", closable: true})
         this.users.set([]);
         this.page.set(1);
         this.totalCount.set(0);

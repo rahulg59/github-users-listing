@@ -1,13 +1,13 @@
 @use '@angular/material' as mat;
+@use "assets/style/style_theme-colors.scss" as theme;
 @import "primeicons/primeicons.css";
-@import "assets/style/style_theme-colors.scss";
 
 html {
   @include mat.theme((
     color: (
       theme-type: light,
-      primary: $primary-palette,
-      tertiary: $tertiary-palette,
+      primary: theme.$primary-palette,
+      tertiary: theme.$tertiary-palette,
     ),
     typography: Roboto,
     density: 0,
