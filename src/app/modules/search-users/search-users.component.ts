@@ -1,4 +1,4 @@
-import { Component, computed, inject, model, signal } from '@angular/core';
+import { Component, computed, inject, model, OnInit, signal } from '@angular/core';
 import { LabelComponent } from "../../shared/ui-elements/label/label.component";
 import { SearchInputComponent } from "../../shared/ui-elements/search-input/search-input.component";
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +9,10 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { UserCardComponent } from "../../shared/ui-elements/user-card/user-card.component";
 import { SystemConfig } from '../../core/config/system.config';
 import { MessageService } from 'primeng/api';
+import { UserInfoModel } from '../../shared/models/user-info.model';
+import { SearchHistoryService } from '../../shared/global-utils/services/search-history.service';
+import { UserSearchHistoryModel } from '../../shared/models/search-history.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-users',
@@ -24,10 +28,10 @@ import { MessageService } from 'primeng/api';
   templateUrl: './search-users.component.html',
   styleUrl: './search-users.component.scss'
 })
-export class SearchUsersComponent {
+export class SearchUsersComponent implements OnInit {
   searchValue = signal<string>('');
   searchedQuery = signal<string>('');
-  users = signal<any[]>([]);
+  users = signal<UserInfoModel[]>([]);
   page = signal(1);
   totalCount = signal(0);
   isLoading = signal(false);
@@ -36,7 +40,10 @@ export class SearchUsersComponent {
 
   // injectors
   private githubService = inject(GithubApiService);
+  private searchHistoryService = inject(SearchHistoryService);
   private toasty = inject(MessageService);
+  private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
 
   // computed
   resultListTitle = computed(() => {
@@ -60,7 +67,23 @@ export class SearchUsersComponent {
     return (this.users() && this.users().length > 0) || (this.totalCount() && this.totalCount() > 0)
   })
 
+  // lifecycle events
+  ngOnInit(): void {
+    this.checkURLQueryParams()
+  }
+
   // logic layer
+  checkURLQueryParams() {
+    const query = this.activatedRoute.snapshot.queryParamMap.get('searchTerm');
+    if(query) {
+      this.searchValue.set(query);
+      this.triggerSearch();
+      // clear query params after search triggered
+      this.router.navigate(["/search"])
+    }
+  }
+
+
   loadUsers() {
     if(this.searchValue()) {
       if (this.isLoading() || (this.totalCount() && this.users().length >= this.totalCount())) {
@@ -79,6 +102,15 @@ export class SearchUsersComponent {
           this.isNoDataFound.set(true);
         } else {
           this.isNoDataFound.set(false);
+        }
+        if(this.page() == 1) {
+          // set history only with first page call
+          const newHistoryItem: UserSearchHistoryModel = {
+            searchTerm: this.searchValue(),
+            countOfFoundUsers: res.total_count,
+            firstUserItem: this.users().length > 0 ? this.users()[0] : null
+          }
+          this.searchHistoryService.addResultToSearchHistory(newHistoryItem);
         }
         this.page.set(this.page() + 1);
         this.isError.set(false);

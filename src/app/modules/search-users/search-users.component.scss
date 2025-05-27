@@ -42,16 +42,3 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
-
-.user-card {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  gap: 20px;
-  border-bottom: 1px solid var(--dividerColor);
-}
-
-.user-card img {
-  width: 50px;
-  border-radius: 50%;
-}

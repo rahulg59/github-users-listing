@@ -49,6 +49,10 @@ export class EncryptedStorage {
         return null;
     }
 
+    public removeItem(key: string) {
+        localStorage.removeItem(key);
+    }
+
     public clearAll() {
         localStorage.clear();
     }

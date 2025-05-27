@@ -1,9 +1,10 @@
 import { CommonModule, } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { LabelComponent } from "../../../shared/ui-elements/label/label.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navigation-layout',
@@ -17,7 +18,7 @@ import { LabelComponent } from "../../../shared/ui-elements/label/label.componen
   templateUrl: './navigation-layout.component.html',
   styleUrl: './navigation-layout.component.scss'
 })
-export class NavigationLayoutComponent {
+export class NavigationLayoutComponent implements OnDestroy {
   links = [
     { label: "Home", route: 'search'},
     { label: "History", route: 'history'},
@@ -27,12 +28,28 @@ export class NavigationLayoutComponent {
   // injectors
   private router = inject(Router);
 
+  // subscription
+  routerSubs: Subscription;
+
   // lifecycle events
   constructor() {
-    const urls = this.router.url.split("/").filter(Boolean);
-    if(urls.length > 0) {
-      // get first level route url
-      this.activeLink = urls[0] 
-    }
+    this.routerSubs = this.router.events.subscribe((event) => {
+      switch (true) {
+        case event instanceof NavigationEnd:
+          // Turn off Page Loading
+          const urls = this.router.url.split("?")[0].split("/").filter(Boolean);
+          if(urls.length > 0) {
+            // get first level route url
+            this.activeLink = urls[0] 
+          }
+          break;
+        default:
+          break;
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.routerSubs.unsubscribe();
   }
 }

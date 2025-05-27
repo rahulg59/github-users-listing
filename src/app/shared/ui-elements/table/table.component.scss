@@ -1,0 +1,10 @@
+:host ::ng-deep {
+    .p-datatable .p-datatable-tbody > tr > td {
+        vertical-align: baseline;
+    }
+    .p-datatable .p-datatable-thead > tr > th {
+        background-color: #f4f4f4;
+        color: var(--grayFontColor);
+        font-weight: 400;
+    }
+}

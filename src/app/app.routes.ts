@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { NavigationLayoutComponent } from './core/layout/navigation-layout/navigation-layout.component';
+import { searchHistoryResolver } from './shared/_http/resolvers/search-history.resolver';
 
 export const routes: Routes = [
     {
@@ -17,7 +18,10 @@ export const routes: Routes = [
             },
             {
                 path: 'history',
-                loadComponent: () => import("./modules/seach-history/seach-history.component").then(c => c.SeachHistoryComponent)
+                loadComponent: () => import("./modules/seach-history/seach-history.component").then(c => c.SeachHistoryComponent),
+                resolve: {
+                    history: searchHistoryResolver
+                }
             }
         ]
     }

@@ -1,1 +1,40 @@
-<p>seach-history works!</p>
+<div class="search-history-container">
+    <div class="page-inner-container" [ngClass]="{'full-height': searchHistoryRows().length > 0}">
+        <div class="page-header">
+            <app-label type="h3">Your Search History</app-label>
+        </div>
+        <div class="search-list-table">
+            @if(searchHistoryRows().length > 0) {
+                <app-table [rows]="searchHistoryRows()" [columns]="searchHistoryTableColumns">
+                    <ng-template #cellRenderer let-row="row" let-col="col">
+                        @switch (col.field) {
+                            @case ("searchTerm") {
+                                <span class="search-term"></span>
+                                {{row.searchTerm}}
+                            }
+                            @case ("results") {
+                                @if(row.firstUserItem) {
+                                    <div class="searched-result">
+                                        <app-user-card [userInfo]="row.firstUserItem"></app-user-card>
+                                        @if(row.countOfFoundUsers > 1) {
+                                            <a [routerLink]="['/search']" [queryParams]="{searchTerm: row.searchTerm}">+{{row.countOfFoundUsers - 1}} Users Found</a>
+                                        }
+                                    </div>
+                                } @else {
+                                    <app-label type="h4">No Records Found</app-label>
+                                }
+                            }
+                        }
+                    </ng-template>
+                </app-table>
+            } @else {
+                <app-label type="h4">No records has been searched yet</app-label>
+            }
+        </div>
+        @if(searchHistoryRows().length > 0) {
+            <div class="action-footer">
+                <button (click)="clearSearchHistory()" class="fluid" mat-flat-button>Clear Search History</button>
+            </div>
+        }
+    </div>
+</div>

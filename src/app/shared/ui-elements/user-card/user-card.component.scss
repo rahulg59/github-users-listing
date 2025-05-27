@@ -8,6 +8,7 @@
     width: 100%;
     border-radius: 4px;
     display: flex;
+    min-width: 300px;
     .user-image, .user-info {
         width: 50%;
         display: flex;
@@ -17,6 +18,7 @@
     .user-image {
         img {
             width: 100px;
+            height: 100px;
             border: 1px solid var(--borderColor);
             border-radius: 4px;
             background-color: var(--borderColor);

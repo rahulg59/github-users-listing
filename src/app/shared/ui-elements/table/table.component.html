@@ -1,0 +1,29 @@
+
+<p-table
+    [value]="rows()"
+    showGridlines
+    [scrollable]="true"
+    [scrollHeight]="scrollableHeight()"
+    [tableStyle]="{ 'min-width': '100%' }">
+        <ng-template #header>
+            <tr>
+                @for (col of columns(); track col.field) {
+                    <th [style.width]="col.width">{{col.header}}</th>
+                }
+            </tr>
+        </ng-template>
+        <ng-template #body let-row>
+            <tr>
+                @for (col of columns(); track col.field) {
+                    <td [style.width]="col.width">
+                        <ng-container 
+                        [ngTemplateOutletContext]="{
+                            row: row,
+                            col: col
+                        }"
+                        [ngTemplateOutlet]="cellRendererTemplateRef"></ng-container>
+                    </td>
+                }
+            </tr>
+        </ng-template>
+</p-table>
