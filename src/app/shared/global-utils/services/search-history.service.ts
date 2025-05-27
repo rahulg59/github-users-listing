@@ -29,6 +29,7 @@ export class SearchHistoryService {
     } else {
       // if no storage found then create one
       this.createNewStorage();
+      this.storedUserSearchHistory.set([]);
       return []
     }
   }
@@ -48,6 +49,7 @@ export class SearchHistoryService {
 
   clearHistory() {
     this.encryptedStorage.removeItem(StorageConfigNS.SeearchHistory);
+    this.storedUserSearchHistory.set([]);
     this.createNewStorage();
   }
 
