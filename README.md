@@ -2,6 +2,9 @@
 
 This Angular-based application allows users to search for GitHub profiles using the public GitHub Search API. As users type in a query and hit enter, the app fetches matching GitHub users and displays them in a card-style list layout. This also have the History page which maintains the search history and also have option to clear search history.
 
+## Run on Stackblitz
+Open this link to run on stackblitz https://stackblitz.com/~/github.com/rahulg59/github-users-listing
+
 ## Requirements
 
 - Node.js >= 22.0
